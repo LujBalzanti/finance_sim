@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contributions vs Growth</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h2>Contributions vs Growth (Median Path) - Nominal</h2>
+  <canvas id="contributionsChart" width="900" height="400"></canvas>
+
+  <script>
+    fetch('sim_contributions.json')
+      .then(response => response.json())
+      .then(data => {
+        new Chart(document.getElementById('contributionsChart'), {
+          type: 'bar',
+          data: {
+            labels: data.months,
+            datasets: [
+              { label: 'Contributions', data: data.contributions, backgroundColor: 'orange' },
+              { label: 'Growth', data: data.growth, backgroundColor: 'blue' }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: { title: { display: true, text: 'Median Path: Contributions vs Growth' } },
+            scales: { x: { stacked: true, title: { display: true, text: 'Month' } },
+                      y: { stacked: true, title: { display: true, text: 'Balance ($)' } } }
+          }
+        });
+      });
+  </script>
+
+  <h2>Contributions vs Growth (Median Path) - Real</h2>
+  <canvas id="contributionsChart2" width="900" height="400"></canvas>
+
+  <script>
+    fetch('sim_contributions_real.json')
+      .then(response => response.json())
+      .then(data => {
+        new Chart(document.getElementById('contributionsChart2'), {
+          type: 'bar',
+          data: {
+            labels: data.months,
+            datasets: [
+              { label: 'Contributions', data: data.contributions, backgroundColor: 'orange' },
+              { label: 'Growth', data: data.growth, backgroundColor: 'blue' }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: { title: { display: true, text: 'Median Path: Contributions vs Growth' } },
+            scales: { x: { stacked: true, title: { display: true, text: 'Month' } },
+                      y: { stacked: true, title: { display: true, text: 'Balance ($)' } } }
+          }
+        });
+      });
+  </script>
+</body>
+</html>

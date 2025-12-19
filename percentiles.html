@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Percentile Bands</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h2>Investment Simulation - Percentile Bands - Nominal</h2>
+  <canvas id="percentilesChart" width="900" height="400"></canvas>
+
+  <script>
+    fetch('sim_percentiles_nominal.json')
+      .then(response => response.json())
+      .then(data => {
+        const ctx = document.getElementById('percentilesChart').getContext('2d');
+
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: data.months,
+            datasets: [
+              {label: 'Median', data: data.median, borderColor: 'blue', fill: false, tension: 0.1},
+              {label: '25th Percentile', data: data.p25, borderColor: 'orange', borderDash: [5,5], fill: '+1', tension: 0.1},
+              {label: '75th Percentile', data: data.p75, borderColor: 'orange', borderDash: [5,5], fill: false, tension: 0.1},
+              {label: '5th Percentile', data: data.p5, borderColor: 'red', borderDash: [5,5], fill: false, tension: 0.1},
+              {label: '90th Percentile', data: data.p90, borderColor: 'green', borderDash: [5,5], fill: false, tension: 0.1}
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: { title: { display: true, text: 'Percentile Bands Over Time' } },
+            scales: { x: { title: { display: true, text: 'Month' } }, y: { title: { display: true, text: 'Balance ($)' } } }
+          }
+        });
+      });
+  </script>
+  <h2>Investment Simulation - Percentile Bands - Real</h2>
+  <canvas id="percentilesChart2" width="900" height="400"></canvas>
+
+  <script>
+    fetch('sim_percentiles_real.json')
+      .then(response => response.json())
+      .then(data => {
+        const ctx = document.getElementById('percentilesChart2').getContext('2d');
+
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: data.months,
+            datasets: [
+              {label: 'Median', data: data.median, borderColor: 'blue', fill: false, tension: 0.1},
+              {label: '25th Percentile', data: data.p25, borderColor: 'orange', borderDash: [5,5], fill: '+1', tension: 0.1},
+              {label: '75th Percentile', data: data.p75, borderColor: 'orange', borderDash: [5,5], fill: false, tension: 0.1},
+              {label: '5th Percentile', data: data.p5, borderColor: 'red', borderDash: [5,5], fill: false, tension: 0.1},
+              {label: '90th Percentile', data: data.p90, borderColor: 'green', borderDash: [5,5], fill: false, tension: 0.1}
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: { title: { display: true, text: 'Percentile Bands Over Time' } },
+            scales: { x: { title: { display: true, text: 'Month' } }, y: { title: { display: true, text: 'Balance ($)' } } }
+          }
+        });
+      });
+  </script>
+</body>
+</html>

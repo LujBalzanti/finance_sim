@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sample Paths</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h2>Random Sample Paths - Nominal</h2>
+  <canvas id="samplePathsChart" width="900" height="400"></canvas>
+
+  <script>
+    fetch('sim_sample_paths_nominal.json')
+      .then(response => response.json())
+      .then(data => {
+        const datasets = data.paths.map((path, idx) => ({
+          label: `Sim ${idx+1}`,
+          data: path,
+          borderColor: `rgba(${Math.floor(Math.random()*200)}, ${Math.floor(Math.random()*200)}, ${Math.floor(Math.random()*200)}, 0.6)`,
+          fill: false,
+          tension: 0.1,
+          pointRadius: 0
+        }));
+
+        new Chart(document.getElementById('samplePathsChart'), {
+          type: 'line',
+          data: { labels: data.months, datasets: datasets },
+          options: {
+            responsive: true,
+            plugins: { title: { display: true, text: 'Random Sample Paths Over Time' }, legend: { display: false } },
+            scales: { x: { title: { display: true, text: 'Month' } }, y: { title: { display: true, text: 'Balance ($)' } } }
+          }
+        });
+      });
+  </script>
+  <h2>Random Sample Paths - Real</h2>
+  <canvas id="samplePathsChart2" width="900" height="400"></canvas>
+
+  <script>
+    fetch('sim_sample_paths_real.json')
+      .then(response => response.json())
+      .then(data => {
+        const datasets = data.paths.map((path, idx) => ({
+          label: `Sim ${idx+1}`,
+          data: path,
+          borderColor: `rgba(${Math.floor(Math.random()*200)}, ${Math.floor(Math.random()*200)}, ${Math.floor(Math.random()*200)}, 0.6)`,
+          fill: false,
+          tension: 0.1,
+          pointRadius: 0
+        }));
+
+        new Chart(document.getElementById('samplePathsChart2'), {
+          type: 'line',
+          data: { labels: data.months, datasets: datasets },
+          options: {
+            responsive: true,
+            plugins: { title: { display: true, text: 'Random Sample Paths Over Time' }, legend: { display: false } },
+            scales: { x: { title: { display: true, text: 'Month' } }, y: { title: { display: true, text: 'Balance ($)' } } }
+          }
+        });
+      });
+  </script>
+</body>
+</html>

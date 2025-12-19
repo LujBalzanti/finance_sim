@@ -1,0 +1,4 @@
+backup/*
+*.json
+venv/*
+__pycache__/*

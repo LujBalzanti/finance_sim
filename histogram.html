@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Final Balance Histogram</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h2>Histogram of Nominal(total) Balances</h2>
+  <canvas id="histChart"></canvas>
+
+<script>
+fetch("sim_histogram_nominal.json")
+  .then(response => response.json())
+  .then(data => {
+    const ctx = document.getElementById('histChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: data.labels,   // now shows ranges
+        datasets: [{
+          label: 'Simulation Count',
+          data: data.counts,
+          backgroundColor: 'skyblue'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { title: { display: true, text: 'Final Balance Distribution' } },
+        scales: {
+          x: { ticks: { autoSkip: false, maxRotation: 90, minRotation: 45 } },
+          y: { title: { display: true, text: 'Count' } }
+        }
+      }
+    });
+  });
+</script>
+
+<h2>Histogram of Real(inflation based) Balances</h2>
+<canvas id="histChart2"></canvas>
+
+<script>
+fetch("sim_histogram_real.json")
+.then(response => response.json())
+.then(data => {
+  const ctx = document.getElementById('histChart2').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: data.labels,   // now shows ranges
+      datasets: [{
+        label: 'Simulation Count',
+        data: data.counts,
+        backgroundColor: 'skyblue'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { title: { display: true, text: 'Final Balance Distribution' } },
+      scales: {
+        x: { ticks: { autoSkip: false, maxRotation: 90, minRotation: 45 } },
+        y: { title: { display: true, text: 'Count' } }
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>
