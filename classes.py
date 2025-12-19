@@ -1,8 +1,3 @@
-# Take an investment and calculate a projection of futures with each month having a chance of reducing or increasing return rate.
-
-# I want to put in current state, when I started investing, how much was start investment, how much I put in each month. And then get a return rate from that calculation I could apply to "future".
-
-# I think it'd be best if we split this into two different functionalitys.
 import math
 import random
 
